@@ -1,0 +1,65 @@
+services:
+  app:
+    container_name: laravel-app
+    user: www-data
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    networks:
+      - famas-network
+  vue:
+    build:
+      context: .
+      dockerfile: ./vue/Dockerfile
+    container_name: vue-app
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    networks:
+      - famas-network
+
+  web:
+    image: nginx:1.27-alpine
+    container_name: nginx-server
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/var/www
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - famas-network
+
+  db:
+    container_name: postgres-db
+
+    image: postgres:17.2-alpine
+    restart: unless-stopped
+    expose:
+      - "5432"
+    ports:
+      - "5433:5432"
+    volumes:
+      - famasdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - famas-network
+
+networks:
+  famas-network:
+    driver: bridge
+
+volumes:
+  famasdata:
+
