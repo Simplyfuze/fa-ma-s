@@ -1,7 +1,7 @@
 <script setup>
 
-import menubutton from "../Share/MenuButton.vue";
-
+import menubutton from "./MenuButton.vue";
+import {Link} from "@inertiajs/vue3";
 
 </script>
 
@@ -29,9 +29,9 @@ import menubutton from "../Share/MenuButton.vue";
     <div class="pt-16 max-w-7xl mx-auto flex">
         <aside class="sidebar fixed lg:static w-[240px] lg:h-auto transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-45 overflow-y-auto p-4">
             <div class="bg-white rounded-xl shadow-lg mb-6 p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                <menubutton>
-                    Groups
-                </menubutton>
+                <Link href="/groups" class="flex items-center text-gray-600 hover:text-indigo-800 py-4 transition-all duration-300 hover:translate-x-1">
+                   Groups
+                </Link>
                 <menubutton>
                     Equipment
                 </menubutton>
@@ -44,9 +44,9 @@ import menubutton from "../Share/MenuButton.vue";
                 <menubutton>
                     Profile
                 </menubutton>
-                <menubutton>
+                <Link href="/logout" method="post" class="flex items-center text-gray-600 hover:text-indigo-800 py-4 transition-all duration-300 hover:translate-x-1">
                     Log Out
-                </menubutton>
+                </Link>
             </div>
         </aside>
 

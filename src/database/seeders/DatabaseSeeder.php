@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Group;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,12 +15,20 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Admin',
+        $user = User::create([
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin'),
             'role' => 'admin',
         ]);
+
+
+        $group = Group::create([
+            'name' => 'Admin Group',
+        ]);
+
+        $group->users()->attach($user);
+
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,7 @@ Route::middleware(['auth'])->group(function () {
         return inertia('index');
     });
 
-    Route::get('/groups', function () {
-        return inertia('Groups/index');
-    });
+    Route::get('/groups', [GroupController::class, 'index']);
 
     Route::post('/logout',[SessionController::class, 'destroy'])->name('logout');
 });
