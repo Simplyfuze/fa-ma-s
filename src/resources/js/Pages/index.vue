@@ -1,7 +1,9 @@
 <script setup>
 
-import Layout from '../Layouts/Layout.vue'
-import groupcard from "../Share/GroupCard.vue";
+import groupcard from "../Shared/GroupCard.vue";
+import Layout from "../Shared/Layout.vue";
+
+
 </script>
 
 <template>

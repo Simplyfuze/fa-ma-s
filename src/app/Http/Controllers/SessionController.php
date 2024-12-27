@@ -28,6 +28,11 @@ class SessionController extends Controller
         return redirect()->intended();
     }
 
+    function destroy(Request $request)
+    {
+        request()->session()->invalidate();
+        return redirect('/login');
+    }
 
 
 }

@@ -13,4 +13,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return inertia('index');
     });
+
+    Route::get('/groups', function () {
+        return inertia('Groups/index');
+    });
+
+    Route::post('/logout',[SessionController::class, 'destroy'])->name('logout');
 });
