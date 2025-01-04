@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('consumables', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('group_name');
+            $table->string('consumable_type');
+            $table->string('consumable_name');
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('consumables');
     }
 };

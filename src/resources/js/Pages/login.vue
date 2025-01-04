@@ -11,13 +11,11 @@ let submit = () => {
     form.post('/login', )
 }
 
-
 </script>
 
 <template>
     <div class="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
         <div class="bg-white rounded-lg shadow-lg p-8 max-w-md">
-<!--            <h1 class="text-4xl font-bold text-center text-purple-700 mb-8"></h1>-->
             <form @submit.prevent="submit" class="space-y-6">
                 <div>
                     <label class="block text-gray-700 font-bold mb-2" for="email">
@@ -39,8 +37,6 @@ let submit = () => {
                         Log In
                     </button>
                 </div>
-
-
             </form>
         </div>
     </div>

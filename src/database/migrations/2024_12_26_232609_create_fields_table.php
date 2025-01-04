@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('fields', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('group_name');
+            $table->string('field_name');
+            $table->float('field_size')->nullable();
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('fields');
     }
 };

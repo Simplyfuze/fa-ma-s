@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('user', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('group_name');
+            $table->string('brand_name', length: 60);
+            $table->string('model_name', length: 100);
+            $table->string('registration_number', length: 12)->nullable();
+            $table->integer('year_of_manufacture');
             $table->timestamps();
         });
     }
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('user');
     }
 };

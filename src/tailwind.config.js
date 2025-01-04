@@ -15,7 +15,7 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                bouncy_green: '#49A462',
+                primary: '#49A462',
             }
         },
     },

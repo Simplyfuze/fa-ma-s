@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('group_name');
+            $table->string('task_name');
+            $table->string('task_type');
+            $table->string('task_description')->nullable();
+            $table->boolean('task_status');
+            $table->string('group_id');
+            $table->foreignUlid('field_id')->nullable()->constrained('fields');
             $table->timestamps();
         });
     }
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('tasks');
     }
 };

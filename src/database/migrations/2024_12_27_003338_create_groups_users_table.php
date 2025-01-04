@@ -12,15 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('groups_users', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBiginteger('group_id')->unsigned();
-            $table->unsignedBiginteger('user_id')->unsigned();
+            $table->ulid('group_id');
+            $table->ulid('user_id');
 
-            $table->foreign('group_id')->references('id')
-                ->on('groups')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
             $table->foreign('user_id')->references('id')
                 ->on('users')->onDelete('cascade');
 
+            $table->unique(['group_id', 'user_id']);
             $table->timestamps();
         });
     }
