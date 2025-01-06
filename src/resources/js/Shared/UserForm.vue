@@ -27,9 +27,9 @@ if (props.user) {
 
 let submit = () => {
     if (props.isUpdate)
-        form.post(`/user/${props.user.id}/update`);
+        form.post(`/users/${props.user.id}/update`);
     else
-        form.post(`/user/create`);
+        form.post(`/users/create`);
 }
 </script>
 
@@ -79,7 +79,7 @@ let submit = () => {
                     <label for="year_of_manufacture" class="mb-3 block text-base font-medium">
                         Password
                     </label>
-                    <input type="text" name="password" v-model="form.password"
+                    <input type="password" name="password" v-model="form.password"
                            id="password" placeholder="Enter new password"
                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium  outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                     <p class="text-red-500" v-if="form.errors.password">{{ form.errors.password }}</p>
@@ -90,7 +90,7 @@ let submit = () => {
                     <label for="password_confirmation" class="mb-3 block text-base font-medium ">
                         Confirm Password
                     </label>
-                    <input type="email" name="date" v-model="form.password_confirmation"
+                    <input type="password" name="date" v-model="form.password_confirmation"
                            id="password_confirmation" placeholder="Confirm password"
                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                     <p class="text-red-500" v-if="form.errors.password_confirmation">{{ form.errors.password_confirmation }}</p>

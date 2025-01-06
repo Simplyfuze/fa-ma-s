@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -32,6 +33,19 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // Validate and store the newly created resource
+
+        $attributes = $request->validate([
+            'first_name' => ['required', 'string', 'min:2', 'max:100'],
+            'last_name' => ['required', 'string', 'min:2', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'role' => ['required', 'string', 'min:2', 'max:30', 'in:farmer,worker'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        User::create($attributes);
+
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
+
     }
 
     /**
@@ -49,8 +63,26 @@ class UserController extends Controller
     /**
      * Update the specified user.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
+        $user = User::findOrFail($id);
+
+        $attributes = $request->validate([
+            'first_name' => ['required', 'string', 'min:2', 'max:100'],
+            'last_name' => ['required', 'string', 'min:2', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'role' => ['required', 'string', 'min:2', 'max:30', 'in:farmer,worker'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        try {
+            $user->update($attributes);
+        } catch (QueryException $e) {
+            return back()->withErrors(['email' => 'Email already taken']);
+        }
+
+
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
 
     }
 
@@ -59,5 +91,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $user = User::findOrFail($id);
+
+        $user->tasks()->detach();
+        $user->groups()->detach();
+
+        $user->delete();
+
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+
+
     }
 }

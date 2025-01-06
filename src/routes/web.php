@@ -25,6 +25,7 @@ Route::middleware('admin')->group(function () {
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('users.index');
         Route::get('/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/create', [UserController::class, 'store'])->name('users.store');
         Route::get('/{id}', [UserController::class, 'show'])->name('users.show');
         Route::post('/{id}/update', [UserController::class, 'update'])->name('users.update');
         Route::post('/{id}/delete', [UserController::class, 'destroy'])->name('users.destroy');
@@ -70,10 +71,10 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('tasks')->group(function () {
-        Route::get('/{id}', [TaskController::class, 'show'])->name('task.show');
-        Route::post('/{id}/update', [TaskController::class, 'update'])->name('task.update');
         Route::get('/create', [TaskController::class, 'create'])->name('task.create');
         Route::post('/create', [TaskController::class, 'store'])->name('task.store');
+        Route::get('/{id}', [TaskController::class, 'show'])->name('task.show');
+        Route::post('/{id}/update', [TaskController::class, 'update'])->name('task.update');
         Route::post('/{id}/delete', [TaskController::class, 'destroy'])->name('task.destroy');
     });
 });
