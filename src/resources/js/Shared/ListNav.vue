@@ -1,6 +1,11 @@
 <script setup>
-import {Link} from "@inertiajs/vue3";
+import {Link, usePage} from "@inertiajs/vue3";
+import {computed} from "vue";
 
+
+const page = usePage()
+
+const user = computed(() => page.props.auth.user)
 defineProps({
     title: String,
     href: String,
@@ -15,7 +20,7 @@ defineProps({
 
         <Link
             class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-            :href="href" as="button"
+            :href="href" as="button" v-if="user.role === 'admin' || user.role === 'farmer'"
         >
             Add {{title}}
         </Link>

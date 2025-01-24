@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Equipment extends Model
 {
-    // TODO: Add user type
-
+    protected $table = 'equipments';
     use HasUlids;
     protected $fillable = [
         'brand_name',
         'model_name',
+        'equipment_type',
         'registration_number',
         'year_of_manufacture',
     ];

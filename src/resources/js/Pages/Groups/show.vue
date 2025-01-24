@@ -1,11 +1,20 @@
 <script setup>
 import {Icon} from "@vicons/utils";
-import {Link} from "@inertiajs/vue3";
 import {TrashCan} from "@vicons/carbon";
+
+import {Link, usePage} from "@inertiajs/vue3";
+import {computed} from "vue";
+
+
+const page = usePage()
+
+const user = computed(() => page.props.auth.user)
 
 let props = defineProps({
     users: Array,
     tasks: Array,
+    group: String,
+
 })
 
 </script>
@@ -14,17 +23,17 @@ let props = defineProps({
 
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
         <main class="h-auto rounded-lg lg:col-span-2 ">
-            <nav class="flex justify-between items-center p-4 space-y-2">
-                <h1 class="text-xl font-bold">Tasks</h1>
-                <!--TODO: Add search bar-->
+            <nav class="my-6">
+
+                <h1 class="text-xl font-bold mb-4">Tasks</h1>
+
                 <Link
                     class="inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-                    href="/tasks/create"
+                    href="/tasks/create" as="button" v-if="user.role === 'admin' || user.role === 'farmer'" :data="{group: group}"
                 >
                     Add Task
                 </Link>
             </nav>
-
             <ul class="bg-white w-full shadow overflow-hidden sm:rounded-md ">
 
                 <li v-if="tasks.length === 0" class="flex rounded-md border border-gray-200 px-4 py-5">
@@ -32,7 +41,7 @@ let props = defineProps({
                 </li>
 
                 <li v-for="task in tasks" :key="task.id" class="border-t border-gray-200">
-                    <Link :href="`/task/${task.id}`" class="font-medium text-indigo-600 hover:text-indigo-500">
+                    <Link :href="`/tasks/${task.id}`" class="font-medium text-indigo-600 hover:text-indigo-500">
                         <div class="flex items-center justify-between">
                             <div class="px-4 py-5 sm:px-6 w-4/5">
                                 <div class="flex items-center justify-between">
@@ -49,8 +58,8 @@ let props = defineProps({
                                     </p>
                                 </div>
                             </div>
-                            <Link method="post" :href="`/task/delete/${task.id}`"
-                                  class="p-2 me-8 text-gray-500 hover:text-red-500">
+                            <Link method="post" :href="`/tasks/${task.id}/delete`"
+                                  class="p-2 me-8 text-gray-500 hover:text-red-500" as="button">
                                 <Icon size="32" class="cursor-pointer ">
                                     <TrashCan/>
                                 </Icon>

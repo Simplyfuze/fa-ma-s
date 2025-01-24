@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('task_id')->references('id')
                 ->on('tasks')->onDelete('cascade');
             $table->foreign('equipment_id')->references('id')
-                ->on('user')->onDelete('cascade');
+                ->on('equipments')->onDelete('cascade');
 
             // Composite unique index to avoid duplicates
             $table->unique(['task_id', 'equipment_id']);

@@ -38,7 +38,7 @@ let props = defineProps({
             </template>
 
             <template #aside>
-                <p>Equipment type: W.I.P</p>
+                <p>Equipment type: {{equipment.equipment_type}}</p>
             </template>
 
         </list-item>

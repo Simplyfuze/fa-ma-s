@@ -10,11 +10,15 @@ class Task extends Model
 {
     use HasUlids;
     protected $fillable = [
+        'task_name',
         'task_description',
         'task_type',
         'task_status',
-
+        'group_id',
+        'field_id',
     ];
+
+    protected $guarded = [];
 
     protected $hidden =[
         'created_at',
@@ -42,6 +46,10 @@ class Task extends Model
     public function field()
     {
         return $this->belongsTo(Field::class);
+    }
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
     }
 
 

@@ -15,7 +15,9 @@ class UserController extends Controller
     public function index()
     {
         return inertia('Users/index', [
-            'users' => User::all()
+            'users' => User::where(function ($query) {
+                $query->where('role', 'farmer')->orWhere('role', 'worker');
+            })->get()
         ]);
     }
 

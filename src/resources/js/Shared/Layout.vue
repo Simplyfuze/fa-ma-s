@@ -1,7 +1,13 @@
 <script setup>
 
 import menubutton from "./MenuButton.vue";
-import {Link} from "@inertiajs/vue3";
+import {Link, usePage} from "@inertiajs/vue3";
+
+import { computed } from 'vue'
+
+const page = usePage()
+
+const user = computed(() => page.props.auth.user)
 
 </script>
 
@@ -15,7 +21,7 @@ import {Link} from "@inertiajs/vue3";
                 Farming Management System
             </div>
             <p class="text-xl font-bold text-indigo-800">
-                Кондратюк Олександр
+                {{user.first_name}} {{user.last_name}}
             </p>
         </div>
     </header>
@@ -26,16 +32,18 @@ import {Link} from "@inertiajs/vue3";
                 <Link href="/" class="flex items-center text-gray-600 hover:text-indigo-800 py-4 transition-all duration-300 hover:translate-x-1">
                    Groups
                 </Link>
-                <menubutton href="/equipments">
-                    Equipment
-                </menubutton>
-                <menubutton href="/consumables">
-                    Consumables
-                </menubutton>
-                <menubutton href="/fields">
-                    Fields
-                </menubutton>
-                <menubutton href="/users">
+                <div v-if="user.role === 'admin' || user.role === 'farmer'">
+                    <menubutton href="/equipments">
+                        Equipment
+                    </menubutton>
+                    <menubutton href="/consumables">
+                        Consumables
+                    </menubutton>
+                    <menubutton href="/fields">
+                        Fields
+                    </menubutton>
+                </div>
+                <menubutton href="/users" v-if="user.role === 'admin'">
                     Users
                 </menubutton>
             </div>

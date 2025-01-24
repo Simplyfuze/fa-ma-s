@@ -11,16 +11,18 @@ class GroupController extends Controller
 {
     function index(Request $request)
     {
+        $user = User::findOrFail(Auth::id()) ;
+
         if (request()->user()->role === 'admin')
             $groups = Group::all();
         else{
-            $user = User::find(Auth::id());
             $groups = $user->groups;
         }
 
 
         return inertia("Groups/index", [
-            "groups" => $groups
+            "groups" => $groups,
+            "user" => $user,
         ]);
     }
 
@@ -52,13 +54,16 @@ class GroupController extends Controller
         return redirect("/");
     }
 
-    function show(string $group){
+    function show(string $id){
 
-        $group = Group::findOrFail($group);
+        $group = Group::findOrFail($id);
+        $user = User::findOrFail(Auth::id()) ;
 
         return inertia("Groups/show", [
             "users" => $group->users,
-            "tasks" => $group->tasks
+            "tasks" => $group->tasks,
+            "group" => $id,
+            "role" => $user->role,
         ]);
     }
 

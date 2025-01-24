@@ -18,7 +18,7 @@ const form = useForm({
 if (props.equipment) {
     form.brand_name = props.equipment.brand_name;
     form.model_name = props.equipment.model_name ?? null;
-    form.registration_number = props.equipment.registration_number ?? null;
+    form.registration_number = props?.equipment.registration_number;
     form.year_of_manufacture = props.equipment.year_of_manufacture ?? null;
 }
 let submit = () => {

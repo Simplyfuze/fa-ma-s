@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('task_type');
             $table->string('task_description')->nullable();
             $table->boolean('task_status');
-            $table->string('group_id');
+            $table->string('group_id')->constrained('groups');
             $table->foreignUlid('field_id')->nullable()->constrained('fields');
             $table->timestamps();
         });
